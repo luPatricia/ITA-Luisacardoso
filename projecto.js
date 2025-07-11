@@ -1,184 +1,204 @@
-let alunos = [];
+let nomeAluno = ["julia","maria", "clara"];
+let idadeAluno = [18,20,8];
+let generoAluno = ["f","f","f"];
+let nota1Aluno = [18,5,20];
+let nota2Aluno = [7,0,16];
+let mediaAluno = [];
+let classificacaoAluno = [];
+let soma = 0;
+let maior = -Infinity;
+let menor = Infinity;
+let mediaGeral = 0;
+let aprovados=0,reprovados=0,recupecao = 0, idade18 =0;
+let nome_Procurado = "maria";
 
-function calcularsituacao(media){
-    if (media >= 10){
-        return "Aprovado"
-    } else if(media >= 8){
-        return "Recuperacao";
-    }else {
-        return "Reprovado";
-    }
+function media(n1,n2){
+    return (n1+n2)/2;
 }
 
-function cadastro(){
-    if (alunos.length >= 30){
-        alert("Excedeu o limite de cadastros");
-        return;
-    }
-
-    let nome = document.getElementById("nome").value;
-    let idade = parseInt(document.getElementById("idade").value);
-    let sexo = document.getElementById("sexo").value;
-    let nota1 = parseFloat(document.getElementById("nota1").value);
-    let nota2 = parseFloat(document.getElementById("nota2").value);
-    let media = (nota1+nota2)/2;
-    let situacao = calcularsituacao(media);
-
-
-    alunos.push ({nome, idade, sexo, nota1, nota2, media, situacao});
-    limparCampos();
-    actualizarLista();
-    mostrarRelatorios();
-}
-    function limparCampos(){
-     document.getElementById("nome").value = "";
-     document.getElementById("idade").value = "";
-     document.getElementById("sexo").value = "";
-     document.getElementById("nota1").value = "";
-     document.getElementById("nota2").value = "";
-    }
-
-    function actualizarLista(){
-        const body = document.querySelector("#lista tbody");
-        body.innerHTML = "";
-        alunos.forEach((aluno, index) => {
-            body.innerHTML += `<tr>
-                <td>${index +1}</td>
-                <td>${aluno.nome}</td>
-                <td>${aluno.idade}</td>
-                <td>${aluno.sexo}</td>
-                <td>${aluno.nota1}</td>
-                <td>${aluno.nota2}</td>
-                <td>${aluno.media.toFixed(1)}</td>
-                <td>${aluno.situacao}</td>
-                <td>
-            <button onclick="editarAluno(${index})">Editar</button>
-            <button onclick="removerAluno(${index})">Remover</button>
-                </td>
-            </tr>`;
-        });
-    }
-
-    function mostrarRelatorios(){
-        let texto = "";
-        let total = alunos.length;
-        if(total === 0){
-            return document.getElementById("relatoriosF").innerHTML = "";
-        }
-
-        let  soma = 0, maior = -Infinity, menor = Infinity;
-        let  aprovados = 0, reprovados = 0, recuperacao = 0, maior18 = 0;
-
-          for(let i = 0; i < alunos.length; i++){
-            let a = alunos[i];
-            texto += `${i+1}. ${a.nome} | Idade: ${a.idade} | Sexo: ${a.sexo} | n1: ${a.nota1}| n2${a.nota2}| media: ${a.media}| situação: ${a.situacao}\n`;
-               soma += a.media;
-            if(a.media > maior){
-                maior = a.media;
-            }
-            if(a.media < menor){
-                menor = a.media;
-            }
-
-            if (a.situacao === "Aprovado"){
-                aprovados++;
-            } else if(a.situacao === "Reprovado"){
-                reprovados++;
-            }else{
-                recuperacao++;
-            }
-
-            if(a.idade > 18){
-                maior18++;
-            }
-        }
-         let media_geral = soma/total;
-
-         texto += `MédiaGeral:${media_geral}\n Maior média:${maior}\n menor média${menor}`
-         texto += `Total Aprovados: ${aprovados}\n Total reprovados: ${reprovados}\n Total em recuperação:${recuperacao} Total com mais de 18 anos${maior18}`
-
-         document.getElementById("relatoriosF").innerText = texto;
-  }
-          
-
+function classicacao(media){
+     if(media >= 10){
+       return "Aprovado";
+        
+     } else if(media >= 8){
+        return "Recuperação";
        
+     }else{
+        return "Reprovado";
+        
+     }
+}
+if (nomeAluno.length >= 30){
+    console.log("Excedeu o limite de cadastros");
+}else{
+    for (let i = 0; i < nomeAluno.length; i++){
+     mediaAluno[i]= media(nota1Aluno[i], nota2Aluno[i]);
+     classificacaoAluno[i] = classicacao(mediaAluno[i]);
+}
 
-    
- 
-    function buscarAluno(){
-         let nome_dado = document.getElementById("buscar").value.trim().toLowerCase();
-         if (!nome_dado){
-            return alert("Digite um nome para verificar");
-         }
-         let encontrado = alunos.find(aluno => aluno.nome.toLowerCase() === nome_dado);
+console.log("Lista dos alunos");
+for(let i = 0; i< nomeAluno.length; i++){
+    console.log("Nome: "+ nomeAluno[i]+ "  "+"Idade: "+ idadeAluno[i]+"anos"+ "  "+"gênero: " + generoAluno[i]+ "  "+"Nota1: " + nota1Aluno[i]+ "  "+"Nota2: "+nota2Aluno[i]+ "  " +"Média: "+ mediaAluno[i] + "  "+ "Classificação: "+ classificacaoAluno[i]);
+}
+
+console.log("---------------------------------------------------------------------------");
+for (let i = 0; i < nomeAluno.length; i++){
+     if(nome_Procurado === nomeAluno[i]){
+        console.log("Aluno procurado: "+nome_Procurado);
+        console.log("Nome: "+ nomeAluno[i]+ "  "+"Idade: "+ idadeAluno[i]+"anos"+ "  "+"gênero: " + generoAluno[i]+ "  "+"Nota1: " + nota1Aluno[i]+ "  "+"Nota2: "+nota2Aluno[i]+ "  " +"Média: "+ mediaAluno[i] + "  "+ "Classificação: "+ classificacaoAluno[i]);
+     }
+}
+let indice = 0;
+nomeAluno[indice] = "paulo";
+idadeAluno[indice] = 14;
+generoAluno[indice] = "m";
+nota1Aluno[indice] = 6;
+nota2Aluno[indice] = 9;
+mediaAluno[indice] = media(nota1Aluno[indice],nota2Aluno[indice]);
+classificacaoAluno[indice] = classicacao(mediaAluno[indice]);
+console.log("---------------------------------------------------------------------------");
+console.log("Lista actualizada");
+for(let i = 0; i < nomeAluno.length; i++){
+  console.log("Nome: "+ nomeAluno[i]+ "  "+"Idade: "+ idadeAluno[i]+"anos"+ "  "+"gênero: " + generoAluno[i]+ "  "+"Nota1: " + nota1Aluno[i]+ "  "+"Nota2: "+nota2Aluno[i]+ "  " +"Média: "+ mediaAluno[i] + "  "+ "Classificação: "+ classificacaoAluno[i]);
+}
+let indice_remover = 2;
+for(let i = indice_remover; i < nomeAluno.length-1; i++){
+nomeAluno[i] = nomeAluno[i+1];
+idadeAluno[i] = idadeAluno[i+1];
+generoAluno[i] = generoAluno[i+1];
+nota1Aluno[i] = nota1Aluno[i+1];
+nota2Aluno[i] = nota2Aluno[i+1];
+mediaAluno[i] = mediaAluno[i+1];
+classificacaoAluno[i] = classificacaoAluno[i+1];
+}
+nomeAluno.length--;
+idadeAluno.length--; 
+generoAluno.length--;
+nota1Aluno.length--;
+nota2Aluno.length--;
+mediaAluno.length--;
+classificacaoAluno.length--;
+
+console.log("---------------------------------------------------------------------------");
+console.log("Lista com a remoção de um aluno");
+for(let i = 0; i < nomeAluno.length; i++){
+  console.log("Nome: "+ nomeAluno[i]+ "  "+"Idade: "+ idadeAluno[i]+"anos"+ "  "+"gênero: " + generoAluno[i]+ "  "+"Nota1: " + nota1Aluno[i]+ "  "+"Nota2: "+nota2Aluno[i]+ "  " +"Média: "+ mediaAluno[i] + "  "+ "Classificação: "+ classificacaoAluno[i]);
+}
+
+for( let i = 0; i < nomeAluno.length-1; i++){
+    for(let j = i+1; j < nomeAluno.length; j++ ){
+        if( nomeAluno[i] > nomeAluno[j]){
+            let aux = nomeAluno[i];
+            nomeAluno[i] = nomeAluno[j];
+            nomeAluno[j] = aux;
+
+            let aux2 = idadeAluno[i];
+            idadeAluno[i] = idadeAluno[j];
+            idadeAluno[j] = aux2;
+
+            let aux3 = generoAluno[i];
+            generoAluno[i] = generoAluno[j];
+            generoAluno[j] = aux3;
+
+            let aux4 = nota1Aluno[i];
+            nota1Aluno[i] = nota1Aluno[j];
+            nota1Aluno[j] = aux4;
+
+            let aux5 = nota2Aluno[i];
+            nota2Aluno[i] = nota2Aluno[j];
+            nota2Aluno[j] = aux5;
+
+            let aux6 = mediaAluno[i];
+            mediaAluno[i] = mediaAluno[j];
+            mediaAluno[j] = aux6;
+
+            let aux7 = classificacaoAluno[i];
+            classificacaoAluno[i] = classificacaoAluno[j];
+            classificacaoAluno[j] = aux7;
+        }
 
         
-         if (encontrado) {
-      alert(`Nome: ${encontrado.nome}\nIdade: ${encontrado.idade}\nSexo: ${encontrado.sexo}\nNota1: ${encontrado.nota1}\nNota2: ${encontrado.nota2}\nMédia: ${encontrado.media.toFixed(1)}\nSituação: ${encontrado.situacao}`);
-    } else {
-      alert("Aluno não encontrado");
+    
     }
-
-  }
-
-    function editarAluno(index){
-        let aluno = alunos[index];
-        let novoNome = prompt("Novo nome:", aluno.nome);
-        let novaIdade = parseInt(prompt("Nova idade: ", aluno.idade));
-        let novoSexo = prompt("Novo sexo: ", aluno.sexo);
-        let novanota1 = parseFloat(prompt("Nova nota1:", aluno.nota1));
-        let novanota2 = parseFloat(prompt("Nova nota2: ", aluno.nota2));
-
-        if(!novoNome || isNaN(novaIdade) || !novoSexo || isNaN(novanota1) || isNaN(novanota2) ){
-            alert("Dados inválidos");
-            return;
-        }
-       
-        let  novaMedia = (novanota1+novanota2)/2;
-        let novaSituacao = calcularsituacao(novaMedia);
-
-        alunos[index] ={
-            nome: novoNome, idade: novaIdade, sexo: novoSexo,
-            nota1: novanota1, nota2: novanota2, media: novaMedia,
-            situacao: novaSituacao
-        };
-
-        actualizarLista();
-        mostrarRelatorios();
-
-    }
-
-    function removerAluno(index){
-        alunos.splice(index, 1);
-        actualizarLista();
-        mostrarRelatorios();
-    }
-
- function ordenarNome(){
-     for(let i = 0; i < alunos.length -1; i++){
-        for(let j = 0; j < alunos.length -1-i; j++){
-            if(alunos[j].nome.toLowerCase() > alunos[j+1].nome.toLowerCase()){
-                let aux = alunos[j];
-                  alunos[j] = alunos[j+1];
-                  alunos[j+1] = aux;
-            }
-        }
-     }
-     actualizarLista();
+}
+console.log("---------------------------------------------------------------------------");
+console.log("Lista ordenada por nomes");
+ for(let i = 0; i < nomeAluno.length; i++){
+    console.log("Nome: "+ nomeAluno[i]+ "  "+"Idade: "+ idadeAluno[i]+"anos"+ "  "+"gênero: " + generoAluno[i]+ "  "+"Nota1: " + nota1Aluno[i]+ "  "+"Nota2: "+nota2Aluno[i]+ "  " +"Média: "+ mediaAluno[i] + "  "+ "Classificação: "+ classificacaoAluno[i]);
  }
 
- function ordenarMedia(){
-     for(let i = 0; i < alunos.length -1; i++){
-        for(let j = 0; j < alunos.length-1-i; j++){
-            if(alunos[j].media < alunos[j+1].media){
-                let aux = alunos[j];
-                  alunos[j] = alunos[j+1];
-                  alunos[j+1] = aux;
-            }
-        }
-        actualizarLista();
-     }
+ for( let i = 0; i < nomeAluno.length-1; i++){
+    for(let j = i+1; j < nomeAluno.length; j++ ){
+        if( mediaAluno[i]< mediaAluno[j]){
+            let aux = nomeAluno[i];
+            nomeAluno[i] = nomeAluno[j];
+            nomeAluno[j] = aux;
 
-     
+            let aux2 = idadeAluno[i];
+            idadeAluno[i] = idadeAluno[j];
+            idadeAluno[j] = aux2;
+
+            let aux3 = generoAluno[i];
+            generoAluno[i] = generoAluno[j];
+            generoAluno[j] = aux3;
+
+            let aux4 = nota1Aluno[i];
+            nota1Aluno[i] = nota1Aluno[j];
+            nota1Aluno[j] = aux4;
+
+            let aux5 = nota2Aluno[i];
+            nota2Aluno[i] = nota2Aluno[j];
+            nota2Aluno[j] = aux5;
+
+            let aux6 = mediaAluno[i];
+            mediaAluno[i] = mediaAluno[j];
+            mediaAluno[j] = aux6;
+
+            let aux7 = classificacaoAluno[i];
+            classificacaoAluno[i] = classificacaoAluno[j];
+            classificacaoAluno[j] = aux7;
+        }
+    
+    }
+}
+console.log("---------------------------------------------------------------------------");
+console.log("Lista ordenada por média");
+ for(let i = 0; i < nomeAluno.length; i++){
+    soma += mediaAluno[i];
+    console.log("Nome: "+ nomeAluno[i]+ "  "+"Idade: "+ idadeAluno[i]+"anos"+ "  "+"gênero: " + generoAluno[i]+ "  "+"Nota1: " + nota1Aluno[i]+ "  "+"Nota2: "+nota2Aluno[i]+ "  " +"Média: "+ mediaAluno[i] + "  "+ "Classificação: "+ classificacaoAluno[i]);
  }
 
+ for (let i = 0; i < nomeAluno.length; i++){
+    if(classificacaoAluno[i]=== "Aprovado"){
+          aprovados++;
+    }else if(classificacaoAluno[i]=== "Recuperação"){
+         recupecao++;
+    }else{
+        reprovados++;
+     }
+    
+     if(mediaAluno[i] > maior){
+        maior = mediaAluno[i];
+     }
+
+     if(mediaAluno[i] < menor){
+        menor = mediaAluno[i];
+     }
+
+}
+for(let i = 0; i < idadeAluno.length; i++ ){
+    if(idadeAluno[i] >= 18){
+        idade18++;
+    }
+}
+
+ mediaGeral = soma / mediaAluno.length;
+console.log("Média Geral da Turma: "+mediaGeral.toFixed(2));
+console.log("Maior média: "+maior);
+console.log("Menor média: "+menor);
+console.log("Total de alunos aprovados: "+aprovados);
+console.log("Total de alunos reprovados: "+reprovados);
+console.log("Total de alunos em recuperação: "+recupecao);
+console.log("Número de Alunos maiores de 18 anos "+idade18);
+
+}
